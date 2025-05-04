@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
 RUN git clone https://github.com/colmap/colmap.git /opt/colmap
 
 RUN apt-get install -y \
-    libceres-dev libcgal-dev
+    libceres-dev libcgal-dev libmetis-dev
 # COLMAP 빌드
 WORKDIR /opt/colmap
 RUN mkdir build && cd build && \
