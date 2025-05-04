@@ -17,6 +17,9 @@ RUN apt-get update && apt-get install -y \
     libsqlite3-dev \
     wget unzip
 
+RUN apt-get install -y \
+    libceres-dev
+
 # COLMAP 소스 코드 클론
 RUN git clone https://github.com/colmap/colmap.git /opt/colmap
 
