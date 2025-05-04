@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     libglew-dev qtbase5-dev \
     libatlas-base-dev libsuitesparse-dev \
     libsqlite3-dev \
+    ffmpeg \
     libceres-dev libcgal-dev libmetis-dev \
     wget unzip
 

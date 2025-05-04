@@ -25,3 +25,8 @@ sudo systemctl restart docker 병합 -> 무리데스
 
 
 docker build -t colmap-cuda .
+docker run --gpus all -it --name colmap_dev colmap-cuda /bin/bash
+docker start -ai colmap_dev
+
+$ scp -i ~/.ssh/robosuite.pem visualslam/test1.mp4 ubuntu@16.184.16.175:/home/ubuntu/slam-demo/
+docker cp test1.mp4 colmap_dev:/workspace/
