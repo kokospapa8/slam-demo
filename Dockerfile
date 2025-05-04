@@ -35,3 +35,5 @@ RUN mkdir build && cd build && \
     make install
 # 환경 변수 설정
 ENV PATH="/usr/local/bin:${PATH}"
+
+COPY . /opt/colmap
