@@ -1,4 +1,5 @@
 FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04
+ENV DEBIAN_FRONTEND=noninteractive
 
 # 필수 패키지 설치
 RUN apt-get update && apt-get install -y \
