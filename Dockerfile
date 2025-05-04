@@ -23,10 +23,18 @@ RUN git clone https://github.com/colmap/colmap.git /opt/colmap
 RUN apt-get install -y \
     libceres-dev libcgal-dev libmetis-dev
 # COLMAP 빌드
-WORKDIR /opt/colmap
-RUN mkdir build && cd build && \
-    cmake .. -DCMAKE_BUILD_TYPE=Release && \
-    make -j$(nproc) && make install
 
+
+WORKDIR /opt/colmap
+
+ENV TMPDIR=/opt/tmp
+
+#RUN mkdir build && cd build && \
+#    cmake .. -DCMAKE_BUILD_TYPE=Release && \
+#    make -j$(nproc) && make install
+RUN mkdir -p /opt/tmp && \
+    TMPDIR=/opt/tmp cmake .. -DCMAKE_BUILD_TYPE=Release && \
+    TMPDIR=/opt/tmp make -j$(nproc) && \
+    make install
 # 환경 변수 설정
 ENV PATH="/usr/local/bin:${PATH}"
