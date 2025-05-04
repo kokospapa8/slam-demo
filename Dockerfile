@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     libgoogle-glog-dev libgflags-dev \
     libglew-dev qtbase5-dev \
     libatlas-base-dev libsuitesparse-dev \
+    libsqlite3-dev \
     wget unzip
 
 # COLMAP 소스 코드 클론
