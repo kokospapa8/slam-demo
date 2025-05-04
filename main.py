@@ -43,10 +43,10 @@ def run_colmap_pipeline(image_dir, output_dir):
     ])
 
     # 5. Dense Stereo Matching
-    # run_colmap(["patch_match_stereo", "--workspace_path", dense_dir])
+    run_colmap(["patch_match_stereo", "--workspace_path", dense_dir])
 
     # 6. Dense Fusion (generate final point cloud)
-    # run_colmap(["stereo_fusion", "--workspace_path", dense_dir, "--output_path", os.path.join(dense_dir, "fused.ply")])
+    run_colmap(["stereo_fusion", "--workspace_path", dense_dir, "--output_path", os.path.join(dense_dir, "fused.ply")])
 
 def main():
     video_path = "test1.mp4"
