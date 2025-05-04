@@ -37,7 +37,7 @@ RUN mkdir build && cd build && \
 ENV PATH="/usr/local/bin:${PATH}"
 
 RUN apt-get install -y python3-pip
-RUN pip3 install open3d numpy matplotlib
+RUN pip3 install open3d numpy matplotlib ffmpeg
 RUN mkdir /workspace
 
 COPY . /workspace
