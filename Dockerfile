@@ -15,24 +15,21 @@ RUN apt-get update && apt-get install -y \
     libglew-dev qtbase5-dev \
     libatlas-base-dev libsuitesparse-dev \
     libsqlite3-dev \
+    libceres-dev libcgal-dev libmetis-dev \
     wget unzip
 
 # COLMAP 소스 코드 클론
 RUN git clone https://github.com/colmap/colmap.git /opt/colmap
 
-RUN apt-get install -y \
-    libceres-dev libcgal-dev libmetis-dev
-# COLMAP 빌드
-
-
 WORKDIR /opt/colmap
 
 ENV TMPDIR=/opt/tmp
+RUN mkdir -p /opt/tmp
 
 #RUN mkdir build && cd build && \
 #    cmake .. -DCMAKE_BUILD_TYPE=Release && \
 #    make -j$(nproc) && make install
-RUN mkdir -p /opt/tmp && \
+RUN mkdir build && cd build && \
     TMPDIR=/opt/tmp cmake .. -DCMAKE_BUILD_TYPE=Release && \
     TMPDIR=/opt/tmp make -j$(nproc) && \
     make install
