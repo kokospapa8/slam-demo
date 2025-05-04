@@ -36,4 +36,8 @@ RUN mkdir build && cd build && \
 # 환경 변수 설정
 ENV PATH="/usr/local/bin:${PATH}"
 
-COPY . /opt/colmap
+RUN apt-get install -y python3-pip
+RUN pip3 install open3d numpy matplotlib
+COPY . /workspace
+WORKDIR /workspace
+
