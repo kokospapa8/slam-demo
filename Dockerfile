@@ -38,6 +38,8 @@ ENV PATH="/usr/local/bin:${PATH}"
 
 RUN apt-get install -y python3-pip
 RUN pip3 install open3d numpy matplotlib
+RUN mkdir /workspace
+
 COPY . /workspace
 WORKDIR /workspace
 
