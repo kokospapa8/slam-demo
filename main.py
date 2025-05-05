@@ -49,7 +49,7 @@ def run_colmap_pipeline(image_dir, output_dir):
     run_colmap(["stereo_fusion", "--workspace_path", dense_dir, "--output_path", os.path.join(dense_dir, "fused.ply")])
 
 def main():
-    video_path = "test1.mp4"
+    video_path = "input/test1.mp4"
     frame_output = "output/frames"
     colmap_output = "output"
 
