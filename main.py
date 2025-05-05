@@ -40,7 +40,7 @@ def run_colmap_pipeline(image_dir, output_dir):
         "--output_type", "COLMAP"
     ])
 
-    5. Dense Stereo Matching
+    # 5. Dense Stereo Matching
     run_colmap(["patch_match_stereo", "--workspace_path", dense_dir])
 
     # 6. Dense Fusion
