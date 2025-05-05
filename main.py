@@ -1,13 +1,12 @@
 import os
 import subprocess
+import sys
 
 def extract_frames(video_path, output_dir, fps=5):
     os.makedirs(output_dir, exist_ok=True)
-    cmd = [
-        "ffmpeg", "-i", video_path,
-        "-vf", f"fps={fps}",
-        os.path.join(output_dir, "frame_%04d.png")
-    ]
+    base_name = os.path.splitext(os.path.basename(video_path))[0]
+    frame_pattern = os.path.join(output_dir, f"{base_name}_%04d.png")
+    cmd = ["ffmpeg", "-i", video_path, "-vf", f"fps={fps}", frame_pattern]
     subprocess.run(cmd, check=True)
 
 def run_colmap_pipeline(image_dir, output_dir):
@@ -30,7 +29,6 @@ def run_colmap_pipeline(image_dir, output_dir):
     # 3. Sparse Reconstruction
     run_colmap(["mapper", "--database_path", db_path, "--image_path", image_dir, "--output_path", sparse_dir])
 
-    # 🔧 FIX: Use sparse/0 instead of sparse/
     mapper_output_dir = os.path.join(sparse_dir, "0")
 
     # 4. Undistort Images
@@ -43,18 +41,22 @@ def run_colmap_pipeline(image_dir, output_dir):
     ])
 
     # 5. Dense Stereo Matching
-    run_colmap(["patch_match_stereo", "--workspace_path", dense_dir])
-
-    # 6. Dense Fusion (generate final point cloud)
-    run_colmap(["stereo_fusion", "--workspace_path", dense_dir, "--output_path", os.path.join(dense_dir, "fused.ply")])
+    # run_colmap(["patch_match_stereo", "--workspace_path", dense_dir])
+    #
+    # # 6. Dense Fusion
+    # run_colmap(["stereo_fusion", "--workspace_path", dense_dir, "--output_path", os.path.join(dense_dir, "fused.ply")])
 
 def main():
-    video_path = "input/test1.mp4"
-    frame_output = "output/frames"
+    input_folder = sys.argv[1] if len(sys.argv) > 1 else "input"
     colmap_output = "output"
+    frame_output = os.path.join(colmap_output, "frames")
+    os.makedirs(frame_output, exist_ok=True)
 
-    print("1️⃣ Extracting frames from video...")
-    extract_frames(video_path, frame_output)
+    print("1️⃣ Extracting frames from all MP4 files in", input_folder)
+    for filename in os.listdir(input_folder):
+        if filename.lower().endswith(".mp4"):
+            video_path = os.path.join(input_folder, filename)
+            extract_frames(video_path, frame_output)
 
     print("2️⃣ Running COLMAP SLAM pipeline...")
     run_colmap_pipeline(frame_output, colmap_output)
