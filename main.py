@@ -40,11 +40,11 @@ def run_colmap_pipeline(image_dir, output_dir):
         "--output_type", "COLMAP"
     ])
 
-    # 5. Dense Stereo Matching
-    # run_colmap(["patch_match_stereo", "--workspace_path", dense_dir])
-    #
-    # # 6. Dense Fusion
-    # run_colmap(["stereo_fusion", "--workspace_path", dense_dir, "--output_path", os.path.join(dense_dir, "fused.ply")])
+    5. Dense Stereo Matching
+    run_colmap(["patch_match_stereo", "--workspace_path", dense_dir])
+
+    # 6. Dense Fusion
+    run_colmap(["stereo_fusion", "--workspace_path", dense_dir, "--output_path", os.path.join(dense_dir, "fused.ply")])
 
 def main():
     input_folder = sys.argv[1] if len(sys.argv) > 1 else "input"
